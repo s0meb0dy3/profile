@@ -1,0 +1,195 @@
+:root {
+  --text: #111111;
+  --muted: #4b5563;
+  --rule: #111111;
+  --paper: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+  color: var(--text);
+  font-family: "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
+  line-height: 1.42;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resume-shell {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 12mm 12mm;
+  background: var(--paper);
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 21pt;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+}
+
+.resume-objective {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 10.5pt;
+  font-weight: 800;
+}
+
+.resume-contact {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 9.4pt;
+  color: var(--muted);
+}
+
+h2 {
+  margin: 11px 0 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 10.5pt;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.resume-entry {
+  margin-bottom: 6px;
+}
+
+.resume-entry-header {
+  display: table;
+  width: 100%;
+  font-weight: 800;
+  font-size: 10pt;
+}
+
+.resume-entry-header > div {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.resume-entry-main {
+  width: 74%;
+  padding-right: 8px;
+}
+
+.resume-entry-date {
+  width: 26%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.resume-subline {
+  margin-top: 1px;
+  color: var(--muted);
+  font-size: 9.1pt;
+}
+
+ul {
+  margin: 3px 0 0 15px;
+  padding: 0;
+}
+
+li {
+  margin: 2px 0;
+  font-size: 9.35pt;
+}
+
+p {
+  margin: 0;
+  font-size: 9.35pt;
+}
+
+strong {
+  font-weight: 800;
+}
+
+code {
+  font-family: "Menlo", "Monaco", monospace;
+}
+
+@page {
+  size: A4;
+  margin: 8mm;
+}
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .resume-shell {
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 19pt;
+  }
+
+  .resume-objective {
+    font-size: 10pt;
+  }
+
+  .resume-contact {
+    font-size: 8.8pt;
+  }
+
+  h2 {
+    margin: 8px 0 4px;
+    font-size: 9.8pt;
+  }
+
+  .resume-entry {
+    margin-bottom: 4px;
+  }
+
+  .resume-entry-header {
+    font-size: 9.5pt;
+  }
+
+  .resume-subline,
+  li,
+  p {
+    font-size: 8.8pt;
+  }
+
+  ul {
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 900px) {
+  .resume-shell {
+    width: 100%;
+    min-height: auto;
+    padding: 24px 18px 32px;
+  }
+
+  .resume-entry-header,
+  .resume-entry-header > div {
+    display: block;
+  }
+
+  .resume-entry-main,
+  .resume-entry-date {
+    width: auto;
+    text-align: left;
+  }
+
+  .resume-entry-date {
+    margin-top: 2px;
+    color: var(--muted);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "resume-builder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:resume": "node build.mjs",
+    "watch:resume": "node watch.mjs",
+    "serve:resume": "node serve.mjs"
+  }
+}
