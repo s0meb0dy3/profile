@@ -4,6 +4,7 @@ const state = {
   saveTimer: null,
   isDirty: false,
   isSaving: false,
+  activeMode: "markdown",
 };
 
 const $ = (id) => document.getElementById(id);
@@ -19,8 +20,27 @@ const elements = {
   saveButton: $("saveButton"),
   buildButton: $("buildButton"),
   exportButton: $("exportButton"),
-  aiMarkdownButton: $("aiMarkdownButton"),
-  aiCssButton: $("aiCssButton"),
+  aiActionButton: $("aiActionButton"),
+  markdownTab: $("markdownTab"),
+  cssTab: $("cssTab"),
+  editorTitle: $("editorTitle"),
+  editorKicker: $("editorKicker"),
+  editorDescription: $("editorDescription"),
+};
+
+const modeConfig = {
+  markdown: {
+    title: "Markdown",
+    kicker: "Content Draft",
+    description: "适合写经历、结构和表达。支持选中一段后交给 AI 局部改写。",
+    aiLabel: "AI 修改 Markdown",
+  },
+  css: {
+    title: "CSS",
+    kicker: "Style System",
+    description: "适合压缩单页、调字体和控制打印布局。也支持用 AI 微调样式。",
+    aiLabel: "AI 修改 CSS",
+  },
 };
 
 function setStatus(element, text, className) {
@@ -30,6 +50,21 @@ function setStatus(element, text, className) {
 
 function setMessage(text, type = "") {
   setStatus(elements.messageStatus, text, type);
+}
+
+function setActiveMode(mode) {
+  state.activeMode = mode;
+  const isMarkdown = mode === "markdown";
+  elements.markdownEditor.classList.toggle("is-visible", isMarkdown);
+  elements.cssEditor.classList.toggle("is-visible", !isMarkdown);
+  elements.markdownTab.classList.toggle("is-active", isMarkdown);
+  elements.cssTab.classList.toggle("is-active", !isMarkdown);
+  elements.markdownTab.setAttribute("aria-selected", String(isMarkdown));
+  elements.cssTab.setAttribute("aria-selected", String(!isMarkdown));
+  elements.editorTitle.textContent = modeConfig[mode].title;
+  elements.editorKicker.textContent = modeConfig[mode].kicker;
+  elements.editorDescription.textContent = modeConfig[mode].description;
+  elements.aiActionButton.textContent = modeConfig[mode].aiLabel;
 }
 
 function refreshPreview(previewUrl) {
@@ -192,11 +227,13 @@ function bindEvents() {
   elements.saveButton.addEventListener("click", () => saveSource().catch(() => {}));
   elements.buildButton.addEventListener("click", () => triggerBuild().catch(() => {}));
   elements.exportButton.addEventListener("click", () => exportPdf().catch(() => {}));
-  elements.aiMarkdownButton.addEventListener("click", () => runAiEdit("markdown").catch(() => {}));
-  elements.aiCssButton.addEventListener("click", () => runAiEdit("css").catch(() => {}));
+  elements.aiActionButton.addEventListener("click", () => runAiEdit(state.activeMode).catch(() => {}));
+  elements.markdownTab.addEventListener("click", () => setActiveMode("markdown"));
+  elements.cssTab.addEventListener("click", () => setActiveMode("css"));
 }
 
 bindEvents();
+setActiveMode("markdown");
 loadSource().catch(() => {
   setStatus(elements.saveStatus, "加载失败", "status-error");
   setStatus(elements.buildStatus, "不可用", "status-error");

@@ -3,7 +3,40 @@
 # 姚子毅
 
 <div class="resume-objective">求职意向：Agent开发 / 算法实习</div>
-<div class="resume-contact">电话：15855744778 ｜ 邮箱：yzoziyi103@hotmail.com ｜ 出生年月：2003年8月</div>
+<div class="resume-contact">
+  <span class="contact-item">
+    <span class="contact-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.32.56 3.57.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.19 2.45.56 3.57a1 1 0 0 1-.24 1.02l-2.2 2.2Z" />
+      </svg>
+    </span>
+    <span>15855744778</span>
+  </span>
+  <span class="contact-item">
+    <span class="contact-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.2l8 5.33 8-5.33V7H4Zm16 10V9.6l-7.45 4.97a1 1 0 0 1-1.1 0L4 9.6V17h16Z" />
+      </svg>
+    </span>
+    <span>yzoziyi103@hotmail.com</span>
+  </span>
+  <span class="contact-item">
+    <span class="contact-icon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M8 0C3.58 0 0 3.67 0 8.2c0 3.63 2.29 6.7 5.47 7.78.4.08.55-.18.55-.4 0-.2-.01-.87-.01-1.58-2.01.38-2.53-.5-2.69-.96-.09-.24-.48-.96-.82-1.15-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.84.72 1.24 1.87.89 2.33.68.07-.54.28-.89.5-1.09-1.78-.21-3.64-.92-3.64-4.08 0-.9.31-1.64.82-2.22-.08-.21-.36-1.06.08-2.2 0 0 .67-.22 2.2.85A7.3 7.3 0 0 1 8 3.76c.68 0 1.37.09 2.01.27 1.53-1.07 2.2-.85 2.2-.85.44 1.14.16 1.99.08 2.2.51.58.82 1.31.82 2.22 0 3.17-1.87 3.87-3.65 4.08.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .22.15.49.55.4A8.22 8.22 0 0 0 16 8.2C16 3.67 12.42 0 8 0Z" />
+      </svg>
+    </span>
+    <span><a href="https://github.com/s0meb0dy3">github.com/s0meb0dy3</a></span>
+  </span>
+  <span class="contact-item">
+    <span class="contact-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1Zm12 8H5v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8ZM6 6a1 1 0 0 0-1 1v1h14V7a1 1 0 0 0-1-1H6Z" />
+      </svg>
+    </span>
+    <span>2003.08</span>
+  </span>
+</div>
 
 ## 教育背景
 
@@ -53,29 +86,29 @@
     <div class="resume-entry-date">2025.04 - 2025.08</div>
   </div>
   <ul>
-    <li>面向高校媒体内容生产场景，主导设计并落地“多源内容采集 - 数据治理 - AI 改写 - 一键分发”的工作流系统，将人工检索、整理、改写与发布流程升级为可编排、可复用的自动化链路。</li>
+    <li>面向高校媒体内容生产场景，主导设计并落地“**多源内容采集 - 数据治理 - AI 改写 - 一键分发**”的工作流系统，将人工检索、整理、改写与发布流程升级为可编排、可复用的自动化链路。</li>
     <li>基于 **Coze 平台** 工作流实现抓取、改写、发送等核心节点编排，接入小红书、公众号、抖音及网页资讯等多源内容，并完成统一字段抽象与结构化入库。</li>
-    <li>针对 Cookie 风控与图片链接失效问题，设计 Cookie 池轮询、可用性校验及图片本地化替换机制，提升高频采集任务稳定性，支撑系统在公司内部上线并服务 50+ 高校账号运营。</li>
+    <li>针对 **Cookie 池轮询**、可用性校验及图片本地化替换机制，解决 Cookie 风控与图片链接失效问题，提升高频采集任务稳定性，支撑系统在公司内部上线并服务 **50+ 高校账号** 运营。</li>
   </ul>
 </div>
 
 <div class="resume-entry">
   <div class="resume-entry-header">
-    <div class="resume-entry-main">基于 ARM 架构的 Hadoop TeraSort 性能调优 ｜ 科研项目</div>
-    <div class="resume-entry-date">2025.10 - 至今</div>
+    <div class="resume-entry-main">基于 Agent Harness 的 Coding Agent 系统学习与实践 ｜ 个人项目</div>
+    <div class="resume-entry-date">2026.02 - 2026.03</div>
   </div>
   <ul>
-    <li>搭建 ARM 架构 Hadoop 分布式实验集群，完成 HDFS、YARN、MapReduce 组件部署与网络、存储、运行环境配置，形成可运行、可复现、可扩展的性能测试平台。</li>
-    <li>基于 **Hadoop TeraSort **基准测试，围绕 Shuffle、JVM、I/O 与资源调度等关键链路设计分层调优方案，持续开展参数扫描与组合实验，形成面向 ARM 服务器场景的优化策略。</li>
-    <li>编写自动化部署与批量测试脚本，建立性能指标采集、实验结果归档与参数库管理机制，为后续论文、专利或工程工具开发提供方法与原型基础。</li>
+    <li>围绕 **Coding Agent** 场景系统学习并实践 **Agent Harness** 核心架构，理解“模型负责决策、Harness 负责提供工具、知识、观察与权限边界”的工程范式，建立对智能体系统设计的整体认知。</li>
+    <li>结合项目代码对 **Agent Loop**、**Tool Use**、**Plan / Todo**、**Subagents**、**Skills**、**Context Compact**、**Tasks** 等核心模块进行拆解，掌握任务规划、工具调用、上下文管理、能力扩展与多代理协作的基本实现思路。</li>
+    <li>基于 **终端**、**文件系统** 与技能配置等交互方式，理解 **Coding Agent** 在代码生成、任务拆分、环境感知与执行反馈中的工作链路，形成对智能体工程落地方式的实践认识。</li>
   </ul>
 </div>
 
 ## 技能及其他
 
 - **编程与开发：** 熟练使用 Python，具备 JavaScript / TypeScript、React、Node.js、HTML/CSS 开发能力，了解 C++。
-- **工具与环境：** 熟悉 Linux、Shell 脚本、Git、Docker，熟练使用 Codex、Claude Code、Cursor 等 AI 辅助开发工具，能够提升开发与调试效率。
-- **智能体与大模型应用：** 了解 Agent 基本概念、工作机制与常见框架思路，了解 MCP、Skills 等能力扩展与工具调用机制，具备基于大模型进行任务拆解、流程编排与自动化应用设计的基础认知。
+- **工具与环境：** 熟悉 Linux、Shell 脚本、Git、Docker，熟练使用 **Codex**、**Claude Code**、**Cursor** 等 AI 辅助开发工具，能够提升开发与调试效率。
+- **智能体与大模型应用：** 了解 Agent 基本概念、工作机制与常见框架思路，了解 **MCP**、**Skills** 等能力扩展与工具调用机制，具备基于大模型进行任务拆解、流程编排与自动化应用设计的基础认知，并持续阅读前沿 **Agent 开发博客** 与技术文章，跟进相关实践进展。
 - **荣誉奖项：** 第16届全国大学生数学竞赛广东赛区一等奖；华南理工大学生数学竞赛二等奖；第7届华教杯全国大学生数学竞赛二等奖。
 - **自我评价：** 热爱并持续跟进前沿科技信息，长期使用前沿 AI 工具，对大模型与 Agent 技术的发展保持敏锐的技术嗅觉与高度学习热情。
 

@@ -8,65 +8,70 @@
 </head>
 <body>
   <div class="workspace">
-    <header class="workspace-header">
-      <div>
-        <p class="eyebrow">Local Resume Workspace</p>
-        <h1>MD + CSS 简历工作台</h1>
-      </div>
-      <div class="workspace-actions">
-        <button id="saveButton" class="ghost">立即保存</button>
-        <button id="buildButton" class="ghost">重建预览</button>
-        <button id="exportButton" class="primary">导出单页 PDF</button>
-      </div>
-    </header>
-
-    <section class="status-strip">
-      <div class="status-card">
-        <span class="label">保存状态</span>
-        <strong id="saveStatus">加载中</strong>
-      </div>
-      <div class="status-card">
-        <span class="label">预览状态</span>
-        <strong id="buildStatus">等待构建</strong>
-      </div>
-      <div class="status-card wide">
-        <span class="label">系统消息</span>
-        <strong id="messageStatus">准备就绪后可直接编辑。</strong>
-      </div>
-    </section>
-
     <main class="workspace-grid">
-      <section class="panel panel-editor">
-        <div class="panel-header">
-          <div>
-            <p class="panel-kicker">Content</p>
-            <h2>Markdown</h2>
-          </div>
-          <button id="aiMarkdownButton" class="panel-button">AI 修改 Markdown</button>
+      <section class="editor-panel">
+        <div class="editor-hero">
+          <p class="eyebrow">Editorial Resume Lab</p>
+          <h1>MD + CSS 简历工作台</h1>
+          <p class="hero-copy">左侧维护真实源文件，右侧即时看到最终成品。编辑区可在 Markdown 和 CSS 之间切换。</p>
         </div>
-        <textarea id="markdownEditor" spellcheck="false"></textarea>
+
+        <section class="status-strip">
+          <div class="status-card">
+            <span class="label">保存状态</span>
+            <strong id="saveStatus">加载中</strong>
+          </div>
+          <div class="status-card">
+            <span class="label">预览状态</span>
+            <strong id="buildStatus">等待构建</strong>
+          </div>
+          <div class="status-card wide">
+            <span class="label">系统消息</span>
+            <strong id="messageStatus">准备就绪后可直接编辑。</strong>
+          </div>
+        </section>
+
+        <section class="editor-surface">
+          <div class="editor-toolbar">
+            <div class="mode-switch" role="tablist" aria-label="编辑模式">
+              <button id="markdownTab" class="mode-button is-active" data-mode="markdown" role="tab" aria-selected="true">Markdown</button>
+              <button id="cssTab" class="mode-button" data-mode="css" role="tab" aria-selected="false">CSS</button>
+            </div>
+
+            <div class="workspace-actions">
+              <button id="aiActionButton" class="ghost">AI 修改当前内容</button>
+              <button id="saveButton" class="ghost">立即保存</button>
+              <button id="buildButton" class="ghost">重建预览</button>
+              <button id="exportButton" class="primary">导出单页 PDF</button>
+            </div>
+          </div>
+
+          <div class="editor-meta">
+            <div>
+              <p id="editorKicker" class="panel-kicker">Content Draft</p>
+              <h2 id="editorTitle">Markdown</h2>
+            </div>
+            <p id="editorDescription" class="editor-description">适合写经历、结构和表达。支持选中一段后交给 AI 局部改写。</p>
+          </div>
+
+          <div class="editor-stack">
+            <textarea id="markdownEditor" class="editor-textarea is-visible" spellcheck="false"></textarea>
+            <textarea id="cssEditor" class="editor-textarea" spellcheck="false"></textarea>
+          </div>
+        </section>
       </section>
 
-      <section class="panel panel-editor">
-        <div class="panel-header">
-          <div>
-            <p class="panel-kicker">Style</p>
-            <h2>CSS</h2>
-          </div>
-          <button id="aiCssButton" class="panel-button">AI 修改 CSS</button>
-        </div>
-        <textarea id="cssEditor" spellcheck="false"></textarea>
-      </section>
-
-      <section class="panel panel-preview">
-        <div class="panel-header">
+      <section class="preview-panel">
+        <div class="preview-header">
           <div>
             <p class="panel-kicker">Preview</p>
             <h2>实时简历</h2>
           </div>
           <a id="previewLink" class="panel-link" href="/preview" target="_blank" rel="noreferrer">新窗口打开</a>
         </div>
-        <iframe id="previewFrame" title="Resume preview" src="/preview"></iframe>
+        <div class="preview-frame-shell">
+          <iframe id="previewFrame" title="Resume preview" src="/preview"></iframe>
+        </div>
       </section>
     </main>
   </div>
