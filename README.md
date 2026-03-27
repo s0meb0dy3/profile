@@ -1,15 +1,17 @@
-# Resume Builder
+# Resume Workspace
 
-一个极简的本地简历构建工具。你只需要维护两个源文件：
+一个本地文件驱动的简历工作台。
 
-- `resume.md`：简历内容
-- `resume.css`：简历样式
+核心目标：
 
-构建后会生成一个可直接在浏览器中打开和打印的 HTML 文件：
+- 用 `resume.md` 维护简历内容
+- 用 `resume.css` 维护简历样式
+- 在浏览器里直接编辑这两个文件
+- 实时预览最终简历
+- 让本地 agent 或浏览器内 AI 修改真实文件
+- 一键导出单页 PDF
 
-- `output/resume.html`
-
-这套结构的目标是把“内容”和“样式”都保留成普通文件，方便后续直接让 AI 修改。
+这套结构的原则不变：`resume.md` 和 `resume.css` 永远是真实数据源。
 
 ## 文件结构
 
@@ -17,23 +19,50 @@
 .
 ├── build.mjs
 ├── package.json
+├── resume-builder.mjs
 ├── resume.css
 ├── resume.md
 ├── serve.mjs
 ├── watch.mjs
+├── web/
+│   ├── editor.css
+│   ├── editor.html
+│   └── editor.js
 └── output/
-    └── resume.html
+    ├── resume.html
+    └── resume.pdf
 ```
 
-## 工作方式
+## 安装与运行
 
-`build.mjs` 会读取 `resume.md` 和 `resume.css`，生成一个完整的 `output/resume.html`。
+先安装依赖：
 
-生成后的 HTML：
+```bash
+npm install
+```
 
-- 可以直接双击用浏览器打开
-- 可以通过本地静态服务器访问
-- 可以直接使用浏览器的打印功能导出 PDF
+启动本地工作台：
+
+```bash
+npm run serve:resume
+```
+
+浏览器打开：
+
+```text
+http://127.0.0.1:4173
+```
+
+## 当前功能
+
+打开工作台后，你可以直接：
+
+- 编辑 `Markdown`
+- 编辑 `CSS`
+- 自动保存到磁盘文件
+- 自动重建预览
+- 导出单页 PDF
+- 在配置好模型后，通过浏览器内 AI 修改选中内容或整个当前文件
 
 ## 命令
 
@@ -45,95 +74,162 @@ npm run serve:resume
 
 ### `npm run build:resume`
 
-单次构建简历：
+单次构建：
 
 - 读取 `resume.md`
 - 读取 `resume.css`
 - 生成 `output/resume.html`
 
-适合改完内容后手动重建一次。
+适合做快速构建或调试构建器。
 
 ### `npm run watch:resume`
 
-监听源文件变化并自动构建：
+监听文件变化并自动构建：
 
 - 监听 `resume.md`
 - 监听 `resume.css`
 - 文件变化后自动重新生成 `output/resume.html`
 
-适合一边改一边预览。
+适合你在终端或外部编辑器里直接改文件。
 
 ### `npm run serve:resume`
 
-启动本地静态服务器，默认地址：
+启动本地工作台和 API 服务，默认地址：
 
 ```text
 http://127.0.0.1:4173
 ```
 
-服务器默认会返回 `output/resume.html`，方便在浏览器中预览和打印。
+这个命令现在不只是静态预览，它还会提供：
 
-## 推荐工作流
+- 浏览器编辑页面
+- 文件读写 API
+- 构建 API
+- AI 编辑 API
+- PDF 导出 API
 
-### 方式一：手动构建
+## 浏览器工作流
+
+页面布局分成三块：
+
+- 左侧：`Markdown` 编辑器
+- 中间：`CSS` 编辑器
+- 右侧：简历预览
+
+### 自动保存与预览
+
+当前行为是：
+
+1. 你编辑 `Markdown` 或 `CSS`
+2. 停止输入约 `800ms`
+3. 前端自动保存到 `resume.md` / `resume.css`
+4. 服务端自动重新构建
+5. 右侧预览自动刷新
+
+也可以手动点击：
+
+- `立即保存`
+- `重建预览`
+
+## 导出 PDF
+
+点击页面右上角的 `导出单页 PDF` 按钮，会：
+
+1. 先保存当前内容
+2. 重新构建预览
+3. 检查内容是否超出单页 A4
+4. 生成 `output/resume.pdf`
+
+如果当前内容超过单页，导出会失败，并提示你压缩内容或调整样式。
+
+## AI 修改
+
+推荐的主工作流仍然是：
+
+- 用 Codex / Claude Code 直接修改 `resume.md`
+- 用 Codex / Claude Code 直接修改 `resume.css`
+
+这是最稳定、最适合大改和多版本演进的方式。
+
+### 浏览器内 AI
+
+页面里也提供两个按钮：
+
+- `AI 修改 Markdown`
+- `AI 修改 CSS`
+
+行为：
+
+- 如果你选中一段文本，AI 只改选中部分
+- 如果没有选区，AI 会改整个当前文件
+
+### 启用方式
+
+启动前设置环境变量：
 
 ```bash
-npm run build:resume
+OPENAI_API_KEY=你的key npm run serve:resume
+```
+
+可选：
+
+```bash
+OPENAI_MODEL=gpt-4.1-mini OPENAI_API_KEY=你的key npm run serve:resume
+```
+
+如果你需要兼容别的 OpenAI 接口地址，也可以设置：
+
+```bash
+OPENAI_BASE_URL=https://your-endpoint.example/v1 OPENAI_API_KEY=你的key npm run serve:resume
+```
+
+如果没有配置 `OPENAI_API_KEY`，浏览器内 AI 功能会返回明确报错，但其他编辑和导出功能不受影响。
+
+## 输出文件
+
+构建输出：
+
+- `output/resume.html`
+
+PDF 输出：
+
+- `output/resume.pdf`
+
+## 推荐使用方式
+
+### 方式一：浏览器工作台
+
+```bash
+npm install
 npm run serve:resume
 ```
 
-然后在浏览器打开 `http://127.0.0.1:4173`。
+适合日常编辑、调样式、预览和导出。
 
-每次修改 `resume.md` 或 `resume.css` 后，再执行一次 `npm run build:resume`。
+### 方式二：agent 直接改文件
 
-### 方式二：自动监听
-
-终端 1：
-
-```bash
-npm run watch:resume
-```
-
-终端 2：
-
-```bash
-npm run serve:resume
-```
-
-然后浏览器打开 `http://127.0.0.1:4173`，每次修改源文件后刷新页面即可看到新结果。
-
-## 打印为 PDF
-
-1. 构建并打开简历预览页
-2. 在浏览器中按打印快捷键
-3. 选择“保存为 PDF”
-4. 纸张选择 `A4`
-
-打印样式已经在 `resume.css` 中控制。后续如果你想让简历更稳定地落在一页内，优先修改 `resume.css` 中的：
-
-- 字号
-- 行高
-- section 间距
-- 列表项间距
-- `@media print` 规则
-
-## 让 AI 修改
-
-后续如果你要让 AI 继续调整简历，优先让它改这两个文件：
+直接让本地 agent 修改：
 
 - `resume.md`
 - `resume.css`
 
-常见例子：
+然后再启动工作台查看效果，或者运行：
 
-- “把 `resume.css` 调得更紧凑，适合一页 PDF”
-- “把 `resume.css` 改得更像英文版简历”
-- “把 `resume.md` 的项目经历压缩成更像校招简历的表达”
+```bash
+npm run build:resume
+```
 
-一般不需要改 `build.mjs`、`serve.mjs`、`watch.mjs`，除非你想扩展工具本身。
+适合：
+
+- 压缩全文表达
+- 调整成单页
+- 重写英文版
+- 重做样式
+- 后续扩展多版本
 
 ## 说明
 
-- 这是一个本地工具，不依赖数据库或后端服务
-- 默认不生成 `.pdf` 文件，而是通过浏览器打印导出
-- Markdown 中允许混用少量 HTML 容器，以支持更稳定的简历布局
+- 这是本地单用户工具
+- 默认不依赖数据库
+- 浏览器页面只是编辑器，真实内容仍然在磁盘文件里
+- Markdown 中允许混用少量 HTML 容器，以支持更稳定的布局
