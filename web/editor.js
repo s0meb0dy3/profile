@@ -5,6 +5,7 @@ const state = {
   isDirty: false,
   isSaving: false,
   activeMode: "markdown",
+  previewMode: "readable",
 };
 
 const $ = (id) => document.getElementById(id);
@@ -17,6 +18,8 @@ const elements = {
   messageStatus: $("messageStatus"),
   previewFrame: $("previewFrame"),
   previewLink: $("previewLink"),
+  previewReadableTab: $("previewReadableTab"),
+  previewFullTab: $("previewFullTab"),
   saveButton: $("saveButton"),
   buildButton: $("buildButton"),
   exportButton: $("exportButton"),
@@ -27,6 +30,8 @@ const elements = {
   editorKicker: $("editorKicker"),
   editorDescription: $("editorDescription"),
 };
+
+let previewResizeFrame = null;
 
 const modeConfig = {
   markdown: {
@@ -71,6 +76,70 @@ function refreshPreview(previewUrl) {
   const nextUrl = previewUrl || `/preview?ts=${Date.now()}`;
   elements.previewFrame.src = nextUrl;
   elements.previewLink.href = nextUrl;
+}
+
+function setPreviewMode(mode) {
+  state.previewMode = mode;
+  const isReadable = mode === "readable";
+  elements.previewReadableTab.classList.toggle("is-active", isReadable);
+  elements.previewFullTab.classList.toggle("is-active", !isReadable);
+  elements.previewReadableTab.setAttribute("aria-selected", String(isReadable));
+  elements.previewFullTab.setAttribute("aria-selected", String(!isReadable));
+  queuePreviewFit();
+}
+
+function fitPreviewToViewport() {
+  const frame = elements.previewFrame;
+  const frameDocument = frame.contentDocument;
+
+  if (!frameDocument) {
+    return;
+  }
+
+  const shell = frameDocument.querySelector(".resume-shell");
+  if (!shell) {
+    return;
+  }
+
+  const root = frameDocument.documentElement;
+  const body = frameDocument.body;
+  const availableWidth = frame.clientWidth - 16;
+  const availableHeight = frame.clientHeight - 16;
+  const shellWidth = shell.scrollWidth;
+  const shellHeight = shell.scrollHeight;
+
+  if (!availableWidth || !availableHeight || !shellWidth || !shellHeight) {
+    return;
+  }
+
+  const widthScale = availableWidth / shellWidth;
+  const heightScale = availableHeight / shellHeight;
+  const isReadable = state.previewMode === "readable";
+  const scale = Math.min(isReadable ? widthScale : Math.min(widthScale, heightScale), 1);
+
+  root.style.height = "100%";
+  body.style.height = "100%";
+  body.style.margin = "0";
+  body.style.padding = "8px";
+  body.style.overflowY = isReadable ? "auto" : "hidden";
+  body.style.overflowX = "hidden";
+  body.style.display = "flex";
+  body.style.justifyContent = "center";
+  body.style.alignItems = "flex-start";
+  shell.style.margin = "0";
+  shell.style.transformOrigin = "top center";
+  shell.style.transform = `scale(${scale})`;
+}
+
+function queuePreviewFit() {
+  if (previewResizeFrame !== null) {
+    window.cancelAnimationFrame(previewResizeFrame);
+  }
+
+  previewResizeFrame = window.requestAnimationFrame(() => {
+    previewResizeFrame = null;
+    fitPreviewToViewport();
+  });
 }
 
 async function loadSource() {
@@ -230,10 +299,15 @@ function bindEvents() {
   elements.aiActionButton.addEventListener("click", () => runAiEdit(state.activeMode).catch(() => {}));
   elements.markdownTab.addEventListener("click", () => setActiveMode("markdown"));
   elements.cssTab.addEventListener("click", () => setActiveMode("css"));
+  elements.previewReadableTab.addEventListener("click", () => setPreviewMode("readable"));
+  elements.previewFullTab.addEventListener("click", () => setPreviewMode("full"));
+  elements.previewFrame.addEventListener("load", queuePreviewFit);
+  window.addEventListener("resize", queuePreviewFit);
 }
 
 bindEvents();
 setActiveMode("markdown");
+setPreviewMode("readable");
 loadSource().catch(() => {
   setStatus(elements.saveStatus, "加载失败", "status-error");
   setStatus(elements.buildStatus, "不可用", "status-error");

@@ -8,15 +8,15 @@
 </head>
 <body>
   <div class="workspace">
-    <main class="workspace-grid">
-      <section class="editor-panel">
-        <div class="editor-hero">
-          <p class="eyebrow">Editorial Resume Lab</p>
-          <h1>MD + CSS 简历工作台</h1>
-          <p class="hero-copy">左侧维护真实源文件，右侧即时看到最终成品。编辑区可在 Markdown 和 CSS 之间切换。</p>
-        </div>
+    <header class="workspace-header">
+      <div class="workspace-intro">
+        <p class="eyebrow">Editorial Resume Lab</p>
+        <h1>MD + CSS 简历工作台</h1>
+        <p class="hero-copy">左侧维护源文件，右侧即时查看最终成品，双栏对照调整内容和样式。</p>
+      </div>
 
-        <section class="status-strip">
+      <div class="workspace-topbar">
+        <section class="status-strip" aria-label="工作台状态">
           <div class="status-card">
             <span class="label">保存状态</span>
             <strong id="saveStatus">加载中</strong>
@@ -25,27 +25,35 @@
             <span class="label">预览状态</span>
             <strong id="buildStatus">等待构建</strong>
           </div>
-          <div class="status-card wide">
+          <div class="status-card status-card-message">
             <span class="label">系统消息</span>
             <strong id="messageStatus">准备就绪后可直接编辑。</strong>
           </div>
         </section>
 
-        <section class="editor-surface">
-          <div class="editor-toolbar">
-            <div class="mode-switch" role="tablist" aria-label="编辑模式">
-              <button id="markdownTab" class="mode-button is-active" data-mode="markdown" role="tab" aria-selected="true">Markdown</button>
-              <button id="cssTab" class="mode-button" data-mode="css" role="tab" aria-selected="false">CSS</button>
-            </div>
+        <div class="workspace-actions">
+          <button id="aiActionButton" class="ghost">AI 修改当前内容</button>
+          <button id="saveButton" class="ghost">立即保存</button>
+          <button id="buildButton" class="ghost">重建预览</button>
+          <button id="exportButton" class="primary">导出单页 PDF</button>
+        </div>
+      </div>
+    </header>
 
-            <div class="workspace-actions">
-              <button id="aiActionButton" class="ghost">AI 修改当前内容</button>
-              <button id="saveButton" class="ghost">立即保存</button>
-              <button id="buildButton" class="ghost">重建预览</button>
-              <button id="exportButton" class="primary">导出单页 PDF</button>
-            </div>
+    <main class="workspace-grid">
+      <section class="editor-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Source</p>
+            <h2>编辑区</h2>
           </div>
+          <div class="mode-switch" role="tablist" aria-label="编辑模式">
+            <button id="markdownTab" class="mode-button is-active" data-mode="markdown" role="tab" aria-selected="true">Markdown</button>
+            <button id="cssTab" class="mode-button" data-mode="css" role="tab" aria-selected="false">CSS</button>
+          </div>
+        </div>
 
+        <section class="editor-surface">
           <div class="editor-meta">
             <div>
               <p id="editorKicker" class="panel-kicker">Content Draft</p>
@@ -62,12 +70,18 @@
       </section>
 
       <section class="preview-panel">
-        <div class="preview-header">
+        <div class="panel-header preview-header">
           <div>
             <p class="panel-kicker">Preview</p>
             <h2>实时简历</h2>
           </div>
-          <a id="previewLink" class="panel-link" href="/preview" target="_blank" rel="noreferrer">新窗口打开</a>
+          <div class="preview-actions">
+            <div class="mode-switch" role="tablist" aria-label="预览模式">
+              <button id="previewReadableTab" class="mode-button is-active" data-preview-mode="readable" role="tab" aria-selected="true">铺宽阅读</button>
+              <button id="previewFullTab" class="mode-button" data-preview-mode="full" role="tab" aria-selected="false">整页预览</button>
+            </div>
+            <a id="previewLink" class="panel-link" href="/preview" target="_blank" rel="noreferrer">新窗口打开</a>
+          </div>
         </div>
         <div class="preview-frame-shell">
           <iframe id="previewFrame" title="Resume preview" src="/preview"></iframe>
